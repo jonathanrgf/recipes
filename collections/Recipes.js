@@ -1,11 +1,23 @@
-Recipes = new Meteor.Collection('recipes');
+Recipes = new Mongo.Collection('recipes');
 
-// rules for whos allowd to insert into recipes "if user id exist"
+// rules for whos allowed to insert into recipes "if user id exist"
 Recipes.allow({
 	insert: function(userId, doc) {
 		return !!userId;
 	}
 });
+
+// new schema that will be used inside RecipeSchema
+Ingredient = new SimpleSchema({
+	name: {
+		type: String
+	},
+	amount: {
+		type: String
+	}
+
+});
+
 
 RecipeSchema = new SimpleSchema({
 	name: {
@@ -15,6 +27,17 @@ RecipeSchema = new SimpleSchema({
 	desc: {
 		type: String,
 		label: "Description"
+	},
+	ingredients: {
+		type: [Ingredient]
+	},
+	inMenu: {
+		type: Boolean,
+		defaultValue: false,
+		optional: true,
+		autoform: {
+			type: "hidden"
+		}
 	},
 	author: {
 		type: String,
