@@ -1,5 +1,12 @@
 Recipes = new Meteor.Collection('recipes');
 
+// rules for whos allowd to insert into recipes "if user id exist"
+Recipes.allow({
+	insert: function(userId, doc) {
+		return !!userId;
+	}
+});
+
 RecipeSchema = new SimpleSchema({
 	name: {
 		type: String,
