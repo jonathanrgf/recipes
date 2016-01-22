@@ -1,3 +1,12 @@
+if (Meteor.isClient) {
+	// code that checks for login and log out
+	Accounts.onLogin(function() {
+		FlowRouter.go('recipe-book');
+	});
+	Accounts.onLogout(function() {
+		FlowRouter.go('home');
+	});
+};
 // when a route is being entered
 FlowRouter.triggers.enter([function(context, redirect){
 	if(!Meteor.userId()) {
@@ -27,7 +36,7 @@ FlowRouter.route('/recipe-book', {
 
 // new route passing the ID of recipe on url
 FlowRouter.route('/recipe/:id', {
-	name: 'recipe-book',
+	name: 'recipe',
 	action() {
 		GAnalytics.pageview();
 		BlazeLayout.render('MainLayout', {main: 'RecipeSingle'});
