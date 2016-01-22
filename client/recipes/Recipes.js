@@ -12,3 +12,4 @@ Template.Recipes.helpers({
 		return Recipes.find({});
 	}
 });
+
